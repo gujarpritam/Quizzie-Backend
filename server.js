@@ -1,6 +1,7 @@
 require("dotenv").config();
 const mongoose = require("mongoose");
 const authRoute = require("./routes/auth");
+const quizRoute = require("./routes/quiz");
 const cors = require("cors");
 
 const express = require("express");
@@ -27,6 +28,7 @@ app.get("/api/health", (req, res) => {
 });
 
 app.use("/api/v1/auth", authRoute);
+app.use("/api/v1/quiz", quizRoute);
 
 app.use("*", (req, res) => {
   res.status(404).json({ message: "Route not found" });
