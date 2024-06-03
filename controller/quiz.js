@@ -94,6 +94,60 @@ const updateImpressionsById = async (req, res, next) => {
   }
 };
 
+const updateQuizDetailsById = async (req, res, next) => {
+  try {
+    const quizId = req.query.id;
+    const quizAnswers = req.body;
+
+    console.log(quizId);
+    console.log(quizAnswers);
+
+    if (!quizId) {
+      return res.status(400).json({
+        message: "Bad Request",
+      });
+    }
+
+    const quizDetails = await Quiz.findOne({
+      _id: quizId,
+    });
+
+    if (!quizDetails) {
+      return res.status(400).json({
+        message: "Bad request",
+      });
+    }
+
+    console.log(quizDetails);
+
+    let ques1 = quizDetails.ques1;
+    ques1[2] = quizAnswers[0];
+    console.log(ques1);
+
+    // await Quiz.updateOne(
+    //   { _id: quizId },
+    //   {
+    //     $set: {
+    //       quizName: quizDetails.quizName,
+    //       isPoll: quizDetails.isPoll,
+    //       optionType: quizDetails.optionType,
+    //       timer: quizDetails.timer,
+    //       ques1: ques1[],
+    //       ques2: quizDetails.ques2,
+    //       ques3: quizDetails.ques3,
+    //       ques4: quizDetails.ques4,
+    //       ques5: quizDetails.ques5,
+    //       email: quizDetails.email,
+    //     },
+    //   }
+    // );
+
+    res.json({ message: "Quiz updated successfully" });
+  } catch (error) {
+    next(error);
+  }
+};
+
 const getQuiz = async (req, res, next) => {
   try {
     const quizId = req.query.id || "";
@@ -106,10 +160,17 @@ const getQuiz = async (req, res, next) => {
       });
     }
 
+    console.log(quizDetails);
+
     res.json({ data: quizDetails });
   } catch (error) {
     next(error);
   }
 };
 
-module.exports = { createQuiz, updateImpressionsById, getQuiz };
+module.exports = {
+  createQuiz,
+  updateImpressionsById,
+  updateQuizDetailsById,
+  getQuiz,
+};

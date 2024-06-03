@@ -6,7 +6,7 @@ const quizController = require("../controller/quiz");
 router.post("/add", quizController.createQuiz);
 // router.get("/getAll", storyController.getStories);
 router.get("/getOne", quizController.getQuiz);
-// router.put("/update", verifyToken, storyController.updateStoryDetailsById);
+router.put("/update/quizResponses", quizController.updateQuizDetailsById);
 router.put("/update/impressions", quizController.updateImpressionsById);
 // router.get("/getLikes", storyController.getLikesOnStory);
 // router.put(
